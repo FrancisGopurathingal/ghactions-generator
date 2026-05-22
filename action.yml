@@ -1,0 +1,19 @@
+name: "Podcast Generator"
+author: "Francis Sebastian"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+
+branding:
+  icon: "git-branch"
+  color: "red"
+
+inputs:
+  email:
+    description: "The commitors email address"
+    required: true
+    default: ${{ github.actor }}@localhost
+  name:
+    description: The commitors name
+    required: true
+    default: ${{ github.actor }}
