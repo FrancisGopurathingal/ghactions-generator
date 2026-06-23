@@ -10,7 +10,7 @@ on:
     contents: read
     actions: read
   
-  job:
+  jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
