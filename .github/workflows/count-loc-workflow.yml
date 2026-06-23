@@ -1,6 +1,6 @@
 name: Number of Lines of Code Comparison
 
-on
+on:
   workflow_dispatch:
   push:
     branches:
