@@ -5,12 +5,13 @@ on:
   push:
     branches:
       - main
-    
-  permissions:
-    contents: read
-    actions: read
-  
-  jobs:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  count_loc:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -40,5 +41,5 @@ on:
 
       - name: Print The lines of code summary
         run: |
-          echo "Total Lines of Code: ${{ steps.count_loc_reporter.outputs.total_lines }}"      
-          echo "Lines of Code Markdown Report Path...:  ${{ steps.count_loc_reporter.outputs.loc_report }}"      
+          echo "Total Lines of Code: ${{ steps.count_loc_reporter.outputs.total_lines }}"
+          echo "Lines of Code Markdown Report Path...:  ${{ steps.count_loc_reporter.outputs.loc_report }}"
