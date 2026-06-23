@@ -1,0 +1,44 @@
+name: Number of Lines of Code Comparison
+
+on
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    
+  permissions:
+    contents: read
+    actions: read
+  
+  job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Calculate Lines of Code Using My Action
+        id: count_loc_action
+        uses: FrancisGopurathingal/ghactions-repo-metrics@v3
+        with:
+          output-dir: loc_output
+          branch: main
+
+      - name: Print Lines of Code Count
+        run: |
+          echo "Lines of Code Count:"
+          cat ${{ steps.count_loc_action.outputs.report-file }}
+
+      - name: Count Lines of Code Using Lines of Code Reporter Action
+        id: count_loc_reporter
+        uses: PavanMudigonda/lines-of-code-reporter@v1.8
+
+      - name: Publish Lines of Code Summary
+        run: echo "${{ steps.count_loc_reporter.outputs.lines-of-code-summary }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Print The lines of code summary
+        run: |
+          echo "Total Lines of Code: ${{ steps.count_loc_reporter.outputs.total_lines }}"      
+          echo "Lines of Code Markdown Report Path...:  ${{ steps.count_loc_reporter.outputs.loc_report }}"      
